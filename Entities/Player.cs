@@ -35,6 +35,7 @@ public class Player
     public Vector2 Size = new(48, 84);
     public bool FacingRight = true;
     public bool IsGrounded;
+    public bool InElevator;
     public PlayerState State = PlayerState.Idle;
 
     private float _actionTimer;
@@ -76,7 +77,9 @@ public class Player
             bool left = Raylib.IsKeyDown(KeyboardKey.Left) || Raylib.IsKeyDown(KeyboardKey.A);
             bool right = Raylib.IsKeyDown(KeyboardKey.Right) || Raylib.IsKeyDown(KeyboardKey.D);
             bool down = Raylib.IsKeyDown(KeyboardKey.Down) || Raylib.IsKeyDown(KeyboardKey.S);
-            bool jump = Raylib.IsKeyPressed(KeyboardKey.Up) || Raylib.IsKeyPressed(KeyboardKey.W) || Raylib.IsKeyPressed(KeyboardKey.Space);
+            bool jump = InElevator
+                ? Raylib.IsKeyPressed(KeyboardKey.Space)
+                : (Raylib.IsKeyPressed(KeyboardKey.Up) || Raylib.IsKeyPressed(KeyboardKey.W) || Raylib.IsKeyPressed(KeyboardKey.Space));
 
             bool punch = Raylib.IsKeyPressed(KeyboardKey.Z) || Raylib.IsKeyPressed(KeyboardKey.J);
             bool kick = Raylib.IsKeyPressed(KeyboardKey.X) || Raylib.IsKeyPressed(KeyboardKey.K);
@@ -95,7 +98,7 @@ public class Player
                 audio.PlayKick();
                 Velocity.X *= 0.4f;
             }
-            else if (down && IsGrounded)
+            else if (down && IsGrounded && !InElevator)
             {
                 State = PlayerState.Ducking;
                 Velocity.X = 0f;

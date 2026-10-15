@@ -49,6 +49,34 @@ public class Elevator
         }
     }
 
+    public void CallToFloor(int floorIndex, SoundSynthesizer audio)
+    {
+        if (IsMoving) return;
+        if (floorIndex >= 0 && floorIndex < FloorHeights.Length && floorIndex != CurrentFloorIndex)
+        {
+            CurrentFloorIndex = floorIndex;
+            TargetY = FloorHeights[floorIndex];
+            audio.PlayElevator();
+        }
+    }
+
+    public bool IsInShaft(Vector2 pos)
+    {
+        return MathF.Abs(pos.X - X) < Width / 2f;
+    }
+
+    public int GetNearestFloor(float y)
+    {
+        for (int i = 0; i < FloorHeights.Length; i++)
+        {
+            if (MathF.Abs(y - FloorHeights[i]) < 40f)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void Update(float dt, Player player)
     {
         float speed = 260f;

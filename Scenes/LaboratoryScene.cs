@@ -105,12 +105,23 @@ public class LaboratoryScene : IScene
         bool up = Raylib.IsKeyPressed(KeyboardKey.Up) || Raylib.IsKeyPressed(KeyboardKey.W);
         bool down = Raylib.IsKeyPressed(KeyboardKey.Down) || Raylib.IsKeyPressed(KeyboardKey.S);
 
+        _player.InElevator = false;
         foreach (var el in _elevators)
         {
-            if (Raylib.CheckCollisionPointRec(_player.Position, el.CabinBox))
+            bool inCabin = Raylib.CheckCollisionPointRec(_player.Position, el.CabinBox);
+            if (inCabin)
             {
+                _player.InElevator = true;
                 if (up) el.MoveUp(_audio);
                 else if (down) el.MoveDown(_audio);
+            }
+            else if (el.IsInShaft(_player.Position))
+            {
+                int nearestFloor = el.GetNearestFloor(_player.Position.Y);
+                if (nearestFloor >= 0 && (up || down))
+                {
+                    el.CallToFloor(nearestFloor, _audio);
+                }
             }
             el.Update(dt, _player);
         }
@@ -243,6 +254,18 @@ public class LaboratoryScene : IScene
         foreach (var el in _elevators)
         {
             el.Draw();
+            if (Raylib.CheckCollisionPointRec(_player.Position, el.CabinBox))
+            {
+                Raylib.DrawText("[UP / DOWN] RIDE LIFT", (int)(el.X - 90), (int)(el.CurrentY - el.Height - 28), 18, Constants.NeonGreen);
+            }
+            else if (el.IsInShaft(_player.Position))
+            {
+                int nearestFloor = el.GetNearestFloor(_player.Position.Y);
+                if (nearestFloor >= 0 && nearestFloor != el.CurrentFloorIndex)
+                {
+                    Raylib.DrawText("[UP / DOWN] CALL LIFT", (int)(el.X - 90), (int)(_player.Position.Y - 110), 18, Constants.NeonOrange);
+                }
+            }
         }
 
         // Platforms & Steel Walkways
