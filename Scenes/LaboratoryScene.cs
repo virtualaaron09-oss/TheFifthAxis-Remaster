@@ -108,8 +108,7 @@ public class LaboratoryScene : IScene
         _player.InElevator = false;
         foreach (var el in _elevators)
         {
-            bool inCabin = Raylib.CheckCollisionPointRec(_player.Position, el.CabinBox);
-            if (inCabin)
+            if (el.IsPlayerInside(_player.Position))
             {
                 _player.InElevator = true;
                 if (up) el.MoveUp(_audio);
@@ -210,6 +209,19 @@ public class LaboratoryScene : IScene
 
     private void CheckPlatformCollisions()
     {
+        // First check elevators
+        foreach (var el in _elevators)
+        {
+            if (el.IsPlayerInside(_player.Position))
+            {
+                _player.Position.Y = el.CurrentY;
+                _player.Velocity.Y = 0f;
+                _player.IsGrounded = true;
+                _player.InElevator = true;
+                return;
+            }
+        }
+
         _player.IsGrounded = false;
 
         foreach (var plat in _platforms)
@@ -254,16 +266,18 @@ public class LaboratoryScene : IScene
         foreach (var el in _elevators)
         {
             el.Draw();
-            if (Raylib.CheckCollisionPointRec(_player.Position, el.CabinBox))
+            if (el.IsPlayerInside(_player.Position))
             {
-                Raylib.DrawText("[UP / DOWN] RIDE LIFT", (int)(el.X - 90), (int)(el.CurrentY - el.Height - 28), 18, Constants.NeonGreen);
+                string status = el.IsMoving ? "LIFT IN MOTION..." : "[UP / DOWN] RIDE LIFT";
+                Raylib.DrawText(status, (int)(el.X - 90), (int)(el.CurrentY - el.Height - 28), 18, Constants.NeonGreen);
             }
             else if (el.IsInShaft(_player.Position))
             {
                 int nearestFloor = el.GetNearestFloor(_player.Position.Y);
                 if (nearestFloor >= 0 && nearestFloor != el.CurrentFloorIndex)
                 {
-                    Raylib.DrawText("[UP / DOWN] CALL LIFT", (int)(el.X - 90), (int)(_player.Position.Y - 110), 18, Constants.NeonOrange);
+                    string callStatus = el.IsMoving ? "LIFT ARRIVING..." : "[UP / DOWN] CALL LIFT";
+                    Raylib.DrawText(callStatus, (int)(el.X - 90), (int)(_player.Position.Y - 110), 18, Constants.NeonOrange);
                 }
             }
         }
