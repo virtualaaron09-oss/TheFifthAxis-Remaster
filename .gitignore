@@ -1,0 +1,25 @@
+## Build and Output directories
+bin/
+obj/
+out/
+
+## Visual Studio & IDE files
+.vs/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.launchSettings.json
+
+## Crash dumps and logs
+*.log
+*.dmp
+*.crash
+
+## OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store

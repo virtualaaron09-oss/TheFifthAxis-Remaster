@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Thebes: Nephtys Temple",
+    "date": "July 4th 1555 B.C.",
+    "time": "06:45 AM",
+    "era": "Ancient Egypt",
+    "hazard": "Falling Stone Blocks & Spear Traps"
+  },
+  {
+    "name": "Athens Agora",
+    "date": "June 25th 561 B.C.",
+    "time": "11:29 AM",
+    "era": "Classical Greece",
+    "hazard": "Rolling Chariot Wheels & Bronze Darts"
+  },
+  {
+    "name": "Memphis: Amasis Palace",
+    "date": "July 2nd 560 B.C.",
+    "time": "03:12 PM",
+    "era": "Pharaonic Egypt",
+    "hazard": "Sand Geysers & Temple Spikes"
+  },
+  {
+    "name": "Loches Cloister",
+    "date": "April 12th 512 A.D.",
+    "time": "08:32 PM",
+    "era": "Early Middle Ages",
+    "hazard": "Monastery Pendulums & Trapdoors"
+  },
+  {
+    "name": "Apamea: Pergamons Palace",
+    "date": "May 21st 800 A.D.",
+    "time": "02:30 PM",
+    "era": "Byzantine Era",
+    "hazard": "Greek Fire Torrents & Spiked Gates"
+  },
+  {
+    "name": "Fleury Abbey",
+    "date": "March 25th 999 A.D.",
+    "time": "07:10 PM",
+    "era": "High Middle Ages",
+    "hazard": "Gargoyle Projectiles & Holy Flames"
+  },
+  {
+    "name": "Paris Banlieue Sud",
+    "date": "September 3rd 1998 A.D.",
+    "time": "00:12 AM",
+    "era": "Late 20th Century",
+    "hazard": "High Voltage Cables & Steam Jets"
+  },
+  {
+    "name": "New Marseille",
+    "date": "March 8th 2038 A.D.",
+    "time": "11:56 PM",
+    "era": "Mid 21st Century",
+    "hazard": "Industrial Lasers & Acid Vats"
+  },
+  {
+    "name": "Subpacific North City",
+    "date": "December 24th 2201 A.D.",
+    "time": "11:29 PM",
+    "era": "Oceanic Dome Colony",
+    "hazard": "Water Jets & Crushing Piston Seals"
+  },
+  {
+    "name": "Mars: Copernic Station",
+    "date": "October 6th 2320 A.D.",
+    "time": "08:37 PM",
+    "era": "Interplanetary Colony",
+    "hazard": "Plasma Conduits & Gravity Disruptors"
+  }
+]
